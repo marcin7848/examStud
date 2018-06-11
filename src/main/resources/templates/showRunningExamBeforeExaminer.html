@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Szczegóły przeprowadzanego egzaminu</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+
+        function setTimer() {
+            var exam_id = $("#exam_id").attr("value");
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/runningExams/api/getTimeToEndCode',
+                data: {'exam_id':exam_id},
+                complete: function(r){
+                    var res = r.responseText;
+                    var jsonResponse = JSON.parse(res);
+                    var timeToEndCode = jsonResponse["timeToEndCode"];
+                    $("#setTimerCode").text(timeToEndCode);
+                    if(timeToEndCode == "END"){
+                        location.reload();
+                    }
+                    else {
+                        setTimeout(function(){
+                            setTimer();
+                        }, 105);
+                    }
+                }
+            });
+
+        }
+
+        $(function(){
+            setTimer();
+        });
+
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+<div id="show_groups">
+    <div class="center_position_div">
+        <div style="width: 100%; text-align: center;">
+            Egzamin: <test th:text="${exam.nazwa}"></test><br />
+            Grupa: <test th:text="${group.nazwa}"></test><br />
+
+            KOD: <br /> <test th:text="${exam.kod_aktywacyjny}"></test><br />
+            <test id="setTimerCode" th:text="${timeToEndCode}"></test> min
+            <input type="hidden" id="exam_id" th:value="${exam.id_egzaminu}" />
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

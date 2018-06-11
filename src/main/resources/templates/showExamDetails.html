@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Szczegóły egzaminu</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Zarządzanie egzaminem</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="list_of_groups">
+        <p style="padding-left: 5%;">
+            Nazwa: <test th:text="${showExam.nazwa}"></test>
+        </p>
+        <p style="padding-left: 5%;">
+            Grupa: <test th:text="${groupName}"></test>
+        </p>
+        <p style="padding-left: 5%;">
+            Kod aktywacyjny: <test th:text="${showExam.kod_aktywacyjny}"></test>
+        </p>
+        <p style="padding-left: 5%;">
+            Data utworzenia: <test th:text="${showExam.data_utworzenia}"></test>
+        </p>
+        <p style="padding-left: 5%;">
+            Ostatnia zmiana kodu: <test th:text="${showExam.ostatnia_zmiana_kodu}"></test>
+        </p>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/editCode'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="edit_exam_code" value="Edytuj kod" />
+            <input type="hidden" name="id_group" th:value="${showExam.id_egzaminu}"/>
+        </form>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/edit'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="edit_exam" value="Edytuj nazwę" />
+            <input type="hidden" name="id_group" th:value="${showExam.id_egzaminu}"/>
+        </form>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/deleteExam'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="delete_exam" value="Usuń egzamin" />
+            <input type="hidden" name="id_group" th:value="${showExam.id_egzaminu}"/>
+        </form>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/changeGroup'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="changeGroup" value="Zmień grupę" />
+            <input type="hidden" name="id_group" th:value="${showExam.id_egzaminu}"/>
+        </form>
+        <form th:action="@{/exams}" method="get">
+            <input class="group_edit_button_style" type="submit" value="Powrót" />
+        </form>
+        <br />
+    </div>
+    <div id="group_management">
+        <div id="group_title">
+            Lista testów
+        </div>
+        <div id="delete_list">
+            Usuń
+        </div>
+        <div id="members_list">
+            <ol class="group_members_list" >
+                <li th:each="test : ${showTests}" style="border-bottom-style: solid">
+                    <a th:href="@{'../../../../../../../../../showTests/showQuestions/'+${test.id_testu}}">
+                        <test th:text="${test.nazwa}"></test>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div id="members_delete">
+            <ol class="group_members_list">
+                <li class="group_details_buttons" th:each="test:${showTests}">
+                    <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/deleteTest'}" method="post">
+                        <input type="submit" name="deleteTest" value="X" />
+                        <div class="divider"/>
+                        <input type="hidden" name="exam_id" th:value="${showExam.id_egzaminu}" />
+                        <input type="hidden" name="exam_test_id" th:value="${test.id_testu}" />
+                    </form>
+                </li>
+            </ol>
+        </div>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/addTestApproved'}" method="post">
+            <div class="addTest">
+                <select name="test_choice" style="display: inline; width: 30%; float: left; margin-left: 5%; padding: 2px">
+                    <option value="0" >
+                        <p>Wybierz test...</p>
+                    </option>
+                    <option th:each="test : ${addTests}" th:value="${test.id_testu}">
+                        <p th:text="${test.nazwa}"></p>
+                    </option>
+                </select>
+                <div class="dividerr" />
+                <input type="submit" name="addTest" value="Dodaj test!" style="display: inline; width: 20%; margin-right: 25%; float: right"/>
+                <input type="hidden" th:value="${test_choice}" />
+                <input type="hidden" th:value="${showExam.id_egzaminu}" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

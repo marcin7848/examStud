@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Dodawanie testu</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="layout/styles/layout.css" media="all" />
+    <link href="../../../../../bdiol4-master/src/main/webapp/resources/static/bootstrap.min.css"
+          th:href="@{/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link href="../../../../../bdiol4-master/src/main/webapp/resources/static/bootstrap.css"
+          th:href="@{/bootstrap.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("footerBDIO.html");
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+<div class="wrapper bgded overlay" style="background-image:url('../static/images/demo/backgrounds/01.png');">
+    <div id="pageintro" class="hoc clear">
+
+        <form action="#" th:action="@{/tescik}" th:object="${tescik}" method="post">
+
+            <input type="hidden" th:field="*{id_testu}" th:value="*{id_testu}"/>
+            <div class="form-group">
+                <label class="col-lg-1 control-label">Tresc:</label>
+                <input type="text" class="form-control" name="tresc" th:field="*{Nazwa}"/>
+            </div>
+
+
+            <div>
+                <button class="btn btn-danger" name="przycisk" value="dodajnast" type="submit">Dodaj test i przejdź do tworzenia pytań</button>
+            </div>
+            <div>
+                <button class="btn btn-danger" name="przycisk" value="dodajkoncz" type="submit">Dodaj test i przejdź do menu pytań</button>
+            </div>
+            <div>
+                <button class="btn btn-danger" name="przycisk" value="powrot" type="submit">Anuluj - Powrót do testów </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div id="footerBDIO"></div>
+</body>
+</html>
+
+
+
+
+
+

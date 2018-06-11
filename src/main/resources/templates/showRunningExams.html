@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Uruchomione egzaminy</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Uruchomione egzaminy</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="add_running_exam">
+        <div id="add_running_exam_list">
+            <form method="post" id="add_running_exam_choice" th:action="@{/runningExams/addRunningExam}" >
+                <select name="exam_choice" style="width: 80%">
+                    <option value="0">
+                        <p>Wybierz egzamin...</p>
+                    </option>
+                    <option th:each="exam : ${showExams}" th:value="${exam.id_egzaminu}">
+                        <p th:text="${exam.nazwa}"></p>
+                    </option>
+                </select>
+                <br />
+                <input type="submit" name="add_running_exam" value="Uruchom egzamin"
+                style="margin-top: 5%; margin-left: 20%; margin-right: 20%; width: 60%;"/>
+            </form>
+            <test th:text="${error_text}"></test>
+        </div>
+    </div>
+    <div class="center_position_div"  style="padding: 4%">
+        <div th:each="exams : ${showRunningExams}" class="show_running_exam">
+            Nazwa: <test th:text="${exams.nazwa}"></test><br />
+            Czas rozpoczęcia: <test th:text="${exams.czas_rozpoczecia}"></test><br />
+            Ilość uczestników: <test th:text="${exams.ilosc_uczestnikow}"></test> <br />
+            Grupa: <test th:text="${exams.nazwa_grupy}"></test> <br />
+            Czas do zakończenia: <test th:text="${exams.czas_do_zakonczenia}+' min'"></test><br />
+
+            <form th:action="@{'/runningExams/details/'+${exams.id_egzaminu}}" method="get">
+                <input class="group_edit_button_style" type="submit" value="Szczegóły" /><br />
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dodaj nowe pytanie</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../layout/styles/layout.css" th:href="@{/layout/styles/layout.css}" media="all" />
+    <link href="../static/bootstrap.min.css"
+          th:href="@{/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link href="../static/bootstrap.css"
+          th:href="@{/bootstrap.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+    <style>
+        .table-black > thead > tr {
+            background-color: #555555;
+        }
+        .table-black > tbody > tr {
+            background-color: #555555;
+        }
+    </style>
+
+</head>
+<body id="top">
+<div id="headerBDIO"></div>
+<div class="wrapper bgded overlay" style="background-image:url('../static/images/demo/backgrounds/01.png');">
+
+    <div id="pageintro" class="hoc clear">
+
+    <form action="#" th:action="@{/pytanie}" method="post">
+
+        <input type="hidden" th:field="*{pytanie.id_testu}" th:value="*{pytanie.id_testu}"/>
+
+        <div class="form-group">
+            <label class="col-lg-1 control-label">Tresc:</label>
+            <input type="text" class="form-control" name="tresc" th:field="*{pytanie.tresc}"/>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-5 control-label">Czas w minutach:</label>
+            <input type="number" class="form-control" name="czasodp" th:field="*{pytanie.czasodp}"/>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-5 control-label">Maksymalna ilosc punktow:</label>
+            <input type="number" class="form-control" name="maxpkt" th:field="*{pytanie.ilosc_punktow}"/>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-5 control-label">Czy jest otwarte?:</label>
+            <input type="checkbox" id="checkk" th:field="*{pytanie.czyotwarte}"
+                   th:value="${pytanie.czyotwarte}" onchange="schowaj()"/>
+        </div>
+
+        <div class="form-group" id="tabela">
+
+            <div class="table-responsive">
+                <table class="table table-hover" id="dynamic_field">
+                    <tr>
+                        <td>
+                            <div class="col-xs-7">
+                            <input class="form-control" type="text" id="tx" name="odpowied[]" ></input>
+                            </div>
+                                <div class="col-xs-1">
+                            <input class="form-control" type="text1" id="tx1" name="pyt" onkeypress="return alphaOnly(event) " maxlength="1"></input>
+                                </div>
+
+
+                        </td>
+                        <td class="text-center">&nbsp;<button type="button" name="add" id="add" class="btn btn-success">Dodaj wiecej</button></td>
+                    </tr>
+                </table>
+        </div>
+        </div>
+
+            <div>
+                <button class="btn btn-danger"  name="przycisk" value="dodaj"  type="submit">Dodaj kolejne pytanie</button> </div>
+        <div>
+            <button class="btn btn-danger"  name="przycisk" value="dkoncz"  type="submit">Dodaj pytanie i zakończ tworzenie testu</button> </div>
+        <div>
+            <button class="btn btn-danger"  name="przycisk" value="powrot"  type="submit">Powrót</button> </div>
+    </form>
+
+    </div>
+</div>
+
+<div id="footerBDIO"></div>
+<script>
+    $(document).ready(function(){
+        var i=1;
+        var url= "${pageContext.request.contextPath}";
+        $('#add').click(function(){
+            i++;
+            if(i >= 11){
+            }
+            else{$('#dynamic_field').append('<tr id="row'+i+'">' +
+                '<td>' +
+                '  <div class="col-xs-7"> <input class="form-control" type="text" id="tx" name="odpowied[]" ></input> </div> <div class="col-xs-1"> <input class="form-control" type="text1" id="tx1" name="pyt" onkeypress="return alphaOnly(event) " maxlength="1"></input> </div>'+
+                '</td><td class="text-center"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');}
+        });
+        $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+        });
+    });
+</script>
+<script>
+    function alphaOnly(event) {
+        var key = event.keyCode;
+        return (key ==102 || key == 116);
+    };
+</script>
+<script>
+    function schowaj() {
+        if (document.getElementById('checkk').checked) {
+            document.getElementById('tabela').style.display = 'none';
+            document.getElementById('tx1').style.display = 'none';
+        }
+        else {
+            document.getElementById('tabela').style.display = 'block';
+            document.getElementById('tx1').style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>

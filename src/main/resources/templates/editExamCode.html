@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Edycja kodu aktywacyjnego egzaminu</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script th:inline="javascript">
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+
+        $(document).on("click", "#generate_code", function(){
+
+            var tab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "W", "X", "Y", "Z", "@", "#", "%", "!"];
+            var rand;
+
+            var generate_tab = "";
+            var i = 0;
+
+            function generate_code(i, tab, generate_tab)
+            {
+                if (i >= 10) {
+                    $("#exam_activation_code").val(generate_tab);
+                } else {
+                    rand = Math.ceil(Math.random() * (tab.length - 1));
+                    generate_tab += tab[rand];
+                    i++;
+                    generate_code(i, tab, generate_tab);
+                }
+            }
+
+            setTimeout(generate_code(i, tab, generate_tab), 0);
+
+
+
+            return false;
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Edycja kodu egzaminu</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="being_deleted_member_details">
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/editCode/save'}" method="post">
+            Kod aktywacyjny:<input class="group_edit_button_style" type="text" id="exam_activation_code" name="exam_activation_code" th:value="${showExam.kod_aktywacyjny}" maxlength="10"/>
+            <input class ="delete_member_button_style" type="submit" name="generate_code" id="generate_code" value="Generuj kod" />
+            <input class ="delete_member_button_style" type="submit" name="edit" value="Zapisz zmiany" />
+        </form>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}}" method="get">
+            <input class ="delete_member_button_style" type="submit" value="Powrót" />
+        </form>
+    </div>
+</div>
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

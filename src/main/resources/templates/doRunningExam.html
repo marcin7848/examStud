@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Lacegant</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+
+        function setTimer() {
+            var student_id = $("#studentId").attr("value");
+            var examiner_id = $("#examinerId").attr("value");
+            var runningExam_id = $("#runningExam_id").attr("value");
+
+            $.ajax({
+                type: 'POST',
+                url: '/runningExams/api/getTimeToEndQuestion',
+                data: {'student_id':student_id, 'examiner_id':examiner_id, 'id_trwajacego_egzaminu':runningExam_id},
+                complete: function(r){
+                    var res = r.responseText;
+                    var jsonResponse = JSON.parse(res);
+                    var timeToEndQuestion = jsonResponse["timeToEndQuestion"];
+                    $("#setTimerQuestion").text(timeToEndQuestion);
+                    if(timeToEndQuestion == "END"){
+                        document.getElementById('send_answer').click();
+                    }
+                    else {
+                        setTimeout(function(){
+                            setTimer();
+                        }, 900);
+                    }
+                }
+            });
+
+        }
+
+        $(function(){
+            setTimer();
+        });
+
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+<div id="show_groups">
+    <div class="center_position_div">
+        <div style="width: 100%; text-align: center;">
+            Egzamin: <test th:text="${exam.nazwa}"></test><br />
+            Imię: <test th:text="${user.imie}"></test><br />
+            Nazwisko: <test th:text="${user.nazwisko}"></test><br />
+            Etap: <test th:text="${runningExam.etap_testu}"></test><br />
+            Czas do końca pytania:
+            <test id="setTimerQuestion" th:text="${timeToEndQuestion}"></test> min
+
+            <input type="hidden" name="runningExam_id"  id="runningExam_id" th:value="${runningExam.id_trwajacego_egzaminu}" />
+            <input type="hidden" id="studentId" th:value="${studentId}" />
+            <input type="hidden" id="examinerId" th:value="${examinerId}" />
+        </div>
+    </div>
+    <div class="center_position_div" style="background-color: #66512c">
+        <div>
+            <test th:text="${question.tresc}"></test>
+        </div>
+    </div>
+    <form style="width: 100%;" th:action="@{/runningExams/saveAnswer}" method="post">
+        <input type="hidden" id="czas_rozpoczecia_pytania" name="czas_rozpoczecia_pytania" th:value="${czas_rozpoczecia_pytania}" />
+        <div class="center_position_div" style="background-color: #66512c">
+                <t th:each="answer : ${answers}">
+                    <input type="checkbox" name="answer" th:value="${answer.id_odpowiedzi}" />
+                    <test th:text="${answer.tresc}"></test>&nbsp;&nbsp;
+                </t>
+        </div>
+        <div class="center_position_div" style="background-color: #66512c">
+            <input type="submit" name="send_answer" id= "send_answer" value="Prześlij odpowiedź"
+                   style="width: 30%" />
+        </div>
+        <input type="hidden" name="typ_pytania" value="1" />
+    </form>
+</div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

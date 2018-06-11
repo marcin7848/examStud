@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dodaj gotowe pytania</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../layout/styles/layout.css" th:href="@{/layout/styles/layout.css}" media="all" />
+    <link href="../static/bootstrap.min.css"
+          th:href="@{/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link href="../static/bootstrap.css"
+          th:href="@{/bootstrap.css}"
+          rel="stylesheet" media="screen"/>
+
+    <!--<script src="../static/jquery-3.2.1.js"-->
+            <!--th:src="@{/jquery-3.2.1.js}"></script>-->
+    <style>
+        .table-black > thead > tr {
+            background-color: #555555;
+        }
+        .table-black > tbody > tr {
+            background-color: #555555;
+        }
+    </style>
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+</head>
+
+
+<body id="top">
+<div id="headerBDIO"></div>
+<div class="wrapper bgded overlay" style="background-image:url('../static/images/demo/backgrounds/01.png');">
+
+    <div id="pageintro" class="hoc clear">
+
+    <h2>Pytania</h2>
+
+<input type="hidden" th:field="*{id}" th:value="*{id}"/>
+<form method="post">
+    <table class="table table-black">
+    <thead>
+    <tr>
+        <td>Numer testu</td>
+        <td>Numer pytania</td>
+        <td>Tresc</td>
+        <td>Czas</td>
+        <td>Dodaj do testu</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="test : ${showQuest}">
+        <td th:text="${test.id_testu}">s</td>
+        <td th:text="${test.id_pytania}">id</td>
+        <td th:text="${test.tresc}">tresc</td>
+        <td th:text="${test.czasodp}">czas</td>
+        <td>
+                <a class="btn btn-danger" th:href="${'/showQueest/' + test.id_pytania}">dodaj</a>
+           </td>
+    </tr>
+    </tbody>
+
+</table>
+</form>
+<div class="form-group">
+    <a class="btn btn-danger" th:href="${'/showTests/showQuestions/' + id}">powrót</a></div>
+    </div>
+    </div>
+<div id="footerBDIO"></div>
+</body>
+</html>

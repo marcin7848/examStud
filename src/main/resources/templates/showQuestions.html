@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Wyświetlanie pytań</title>
+        <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="../layout/styles/layout.css" th:href="@{/layout/styles/layout.css}" media="all" />
+        <link href="../static/bootstrap.min.css"
+              th:href="@{/bootstrap.min.css}"
+              rel="stylesheet" media="screen"/>
+        <link href="../static/bootstrap.css"
+              th:href="@{/bootstrap.css}"
+              rel="stylesheet" media="screen"/>
+        <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+        <script>
+            $(function(){
+                $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+            });
+            $(function(){
+                $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+            });
+        </script>
+    <style>
+        .table-black > thead > tr {
+            background-color: #555555;
+        }
+        .table-black > tbody > tr {
+            background-color: #555555;
+        }
+    </style>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+<div class="wrapper bgded overlay" style="background-image:url('../static/images/demo/backgrounds/01.png');">
+    <input type="hidden" th:field="*{id}" th:value="*{id}"/>
+
+    <div id="pageintro" class="hoc clear">
+        <div>
+           <h2>Pytania</h2>
+
+            <a class="btn btn-danger" th:href="${'/addQuestion/'+id}" role="button" name="action" value="save" method="post">Dodaj nowe pytania</a>
+            <a class="btn btn-danger" th:href="${'/showTests/showQuestions/addOldQuestion/'+id}">dodaj istniejące pytanie</a>
+            <a class="btn btn-danger" th:href="${'/showTests'}">Powrót do testów</a>
+
+        </div>
+        <table class="table table-black">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Tresc</td>
+                <td>Czas</td>
+                <td>Typ</td>
+                <td>Odpowiedzi</td>
+                <td>Poprawność</td>
+                <td>Edytuj</td>
+                <td>Usuń</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="test : ${showQuestions}">
+                <td th:text="${test.id_pytania}">id</td>
+                <td th:text="${test.tresc}">tresc</td>
+                <td th:text="${test.czasodp}">czas</td>
+              <td><div th:if="${test.typ}=='o'">otwarte</div>
+              <div th:if="${test.typ}!='o'">zamkniete</div>
+              </td>
+                <td>
+                    <table class="table table-black">
+                        <tr th:each="testyy : ${showAns}" th:if="${testyy.id_pytania}==${test.id_pytania}">
+                            <td th:text="${testyy.tresc}">tresc</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table table-black">
+                        <tr th:each="testyy : ${showAns}" th:if="${testyy.id_pytania}==${test.id_pytania}">
+                            <td><div th:if="${testyy.czy_poprawna}=='t'">tak</div>
+                                <div th:if="${testyy.czy_poprawna}!='t'">nie</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td><a class="glyphicon glyphicon-pencil" th:href="${'/editQuestion/'+test.id_pytania}"></a></td>
+                <td><a class="glyphicon glyphicon-minus" th:href="${'/dropQuest/'+test.id_pytania}"></a></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+</div>
+
+<div id="footerBDIO"></div>
+</body>
+</html>
+
+
+
+

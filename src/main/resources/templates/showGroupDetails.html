@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Szczegóły grupy</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Zarządzanie grupą</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="list_of_groups">
+        <p style="padding-left: 5%;">
+            Nazwa: <test th:text="${showGroupDetails.nazwa}"></test>
+        </p>
+        <p style="padding-left: 5%;">
+            Hasło: <test th:text="${showGroupDetails.haslo}"></test>
+        </p>
+        <form th:action="@{'/groups/details/'+${showGroupDetails.id_grupy}+'/edit'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="edit_group" value="Edytuj grupę" />
+            <input type="hidden" name="id_group" th:value="${showGroupDetails.id_grupy}"/>
+        </form>
+        <form th:action="@{'/groups/details/'+${showGroupDetails.id_grupy}+'/deleteGroup'}" method="post">
+            <input class="group_edit_button_style" type="submit" name="delete_group" value="Usuń grupę" />
+            <input type="hidden" name="id_group" th:value="${showGroupDetails.id_grupy}"/>
+        </form>
+        <form th:action="@{/groups}" method="get">
+            <input style="margin-bottom: 10%;" class="group_edit_button_style" type="submit" value="Powrót" />
+        </form>
+    </div>
+
+    <div id="group_management">
+        <div id="group_title">
+            Lista członków
+        </div>
+        <div id="delete_list">
+            Usuń
+        </div>
+        <div id="members_list">
+            <ol class="group_members_list" >
+                <li th:each="groupMember:${showMembers}" style="border-bottom-style: solid">
+                    <test th:text="${groupMember.nazwisko}"></test>
+                    <test th:text="${groupMember.imie}"></test>
+                </li>
+            </ol>
+        </div>
+        <div id="members_delete">
+            <ol class="group_members_list">
+                <li class="group_details_buttons" th:each="groupMember:${showMembers}">
+                    <form th:action="@{'/groups/details/'+${showGroupDetails.id_grupy}+'/deleteMember'}" method="post">
+                        <input type="submit" name="deleteMember" value="X" />
+                        <input type="hidden" name="group_member_id" th:value="${groupMember.id_uzytkownika}" />
+                        <input type="hidden" name="group_id" th:value="${showGroupDetails.id_grupy}" />
+                        <div class="divider"/>
+                    </form>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

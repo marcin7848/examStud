@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Zmiana grupy</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Zmiana grupy</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="being_deleted_member_details">
+        <p>Wybierz nową grupę dla egzaminu</p>
+        <test th:text="${showExam.nazwa}"></test>
+        <br /><br />
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}+'/changingGroup'}" method="post">
+            <select name="group_choice" style="margin-left: 20%; margin-right: 20%; width: 60%;">
+                <option value="0">
+                    <p>Wybierz nową grupę...</p>
+                </option>
+                <option th:each="group : ${showGroups}" th:value="${group.id_grupy}">
+                    <p th:text="${group.nazwa}"></p>
+                </option>
+            </select>
+            <input class="delete_member_button_style" type="submit" value="Zmień grupę" />
+            <input type="hidden" name="group_id" th:value="${showExam.id_egzaminu}" />
+        </form>
+        <form th:action="@{'/exams/details/'+${showExam.id_egzaminu}}" method="get">
+            <input class="delete_member_button_style" type="submit" value="Powrót" />
+        </form>
+    </div>
+</div>
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

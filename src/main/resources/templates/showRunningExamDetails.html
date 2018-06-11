@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Szczegóły przeprowadzanego egzaminu</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+<div id="show_groups">
+    <div id="group_examiner">
+        <p>Szczegóły przeprowadzanego egzaminu</p>
+        Egzaminator:<test th:text="${showExaminer.imie}"></test>
+        <test th:text="${showExaminer.nazwisko}"></test>
+    </div>
+    <div id="being_deleted_member_details" style="width: 100%">
+        <br />
+        Egzamin: <test th:text="${exam.nazwa}"></test><br />
+        Grupa: <test th:text="${group.nazwa}"></test><br />
+        Czas do końca: <test th:text="${timeToEndExam}"></test> min<br />
+        <input type="hidden" id="exam_id" th:value="${exam.id_egzaminu}" />
+        <br />
+    </div>
+    <div class="center_position_div" style="padding: 2% 0% 2% 0%">
+        <div th:each="runningTest : ${showsAllRunningTests}" class="show_running_exam">
+            ID studenta: <test th:text="${runningTest.studenci_id_studenta}"></test><br />
+            ID testu: <test th:text="${runningTest.testy_id_testu}"></test> <br />
+            Etap: <test th:text="${runningTest.etap_testu}"></test><br />
+            Czas do zakończenia: <test th:text="${runningTest.czas_do_zakonczenia_testu_min}"></test>:<test th:text="${runningTest.czas_do_zakonczenia_testu_sec}"></test>
+        </div>
+    </div>
+</div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>

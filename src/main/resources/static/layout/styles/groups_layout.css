@@ -1,0 +1,215 @@
+#show_groups {
+    background-color: #D8EAFC;
+    border:3px dashed dimgrey;
+    font-size:22px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#group_examiner {
+    width:100%;
+    background-color: #F8FCC7;
+    text-align: center;
+    font-size: 30px;
+    border-bottom: 2px dashed grey;
+    font-variant: small-caps;
+    padding-bottom: 3%;
+}
+
+#list_of_groups {
+    width:30%;
+    background-color: #C9DDF5;
+    border-right: 2px dashed grey;
+    padding: 2%;
+}
+
+#group_management {
+    width:70%;
+    background-color: #E2E6EB;
+    padding-top: 2%;
+}
+
+#group_list {
+    width:25%;
+    background-color:inherit;
+    padding: 1%;
+    float:left;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+#group_options {
+    width:65%;
+    background-color:powderblue;
+    float:right;
+    text-align: center;
+    margin-right: 5%;
+    margin-top: 6%;
+}
+
+#members_list {
+    width:70%;
+    background-color: inherit;
+    float: left;
+    text-align: left;
+    margin-left: 5%;
+}
+#members_delete {
+    width: 20%;
+    background-color: inherit;
+    display: flex;
+    padding-right: 2%;
+    align-items: center;
+    justify-content: center;
+}
+
+#group_title  {
+    width: 70%;
+    text-align: center;
+    margin-left: 5%;
+    background-color: #C9DDF5;
+    border: 2px dashed grey;
+    border-right: none;
+    float: left;
+}
+
+#delete_list  {
+    width: 20%;
+    float: right;
+    margin-right: 5%;
+    background-color: #C9DDF5;
+    border: 2px dashed grey;
+    text-align: center;
+}
+
+#addTest {
+    margin-left: 5%;
+    margin-right: 30%;
+    margin-top: 2%;
+    background-color: red;
+}
+
+.group_members_list  {
+
+}
+
+.group_details_buttons  {
+    /*
+    list-style-type: none;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: green;
+    */
+    list-style-type: none;
+}
+
+.group_edit_button_style  {
+    margin-top: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+}
+
+#being_deleted_member_details  {
+    background-color: #E2E6EB;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.delete_member_button_style  {
+    margin-top: 20px;
+    margin-left: 40%;
+    margin-right: 40%;
+    width: 20%;
+    margin-bottom: 20px;
+}
+
+#editGroup  {
+    background-color: #E2E6EB;
+    text-align: center;
+}
+
+#group_add {
+    width:100%;
+    background-color:#C9DDF5;
+    text-align: center;
+}
+
+#group_list_add_exam {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+
+}
+
+.center_position_div{
+    width:100%;
+    margin: 0 auto;
+    background-color: #E2E6EB;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.show_running_exam
+{
+    width: 22%;
+    background-color: #C9DDF5;
+    margin-left: 1%;
+    margin-right: 1%;
+    overflow: hidden;
+    padding: 2% 2% 0% 2%;
+    border: 2px dashed grey;
+}
+
+#add_running_exam
+{
+    width: 100%;
+    background-color: #C9DDF5;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2%;
+    border-bottom: 2px dashed grey;
+}
+
+#add_running_exam_list
+{
+    width: 40%;
+    background-color: inherit;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2%;
+    margin-bottom: 2px;
+}
+
+#add_running_exam_choice
+{
+    width: 80%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#show_running_exam_button {
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+    text-align: center;
+    border: 2px dashed grey;
+}
+
+.divider{
+    height:5px;
+    width:auto;
+}
+
+.dividerr{
+    width: 30px;
+    height: auto;
+    display: inline;
+}

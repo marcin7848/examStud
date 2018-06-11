@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+Template Name: Lacegant
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <title>Zarządzanie grupami</title>
+    <link rel="Shortcut icon" href="http://pl.seaicons.com/wp-content/uploads/2015/06/Users-Student-Filled-icon.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../../layout/styles/groups_layout.css" media="all" />
+
+    <script src="../../../../../../../../../jquery-3.2.1.js"></script>
+    <script>
+        $(function(){
+            $("#headerBDIO").load("../../../../../../../../../headerBDIO.html");
+        });
+        $(function(){
+            $("#footerBDIO").load("../../../../../../../../../footerBDIO.html");
+        });
+    </script>
+
+</head>
+<body id="top">
+
+<div id="headerBDIO"></div>
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+            <div id="show_groups">
+                <div id="group_examiner">
+                    <p>Zarządzanie grupami</p>
+                    Egzaminator:<test th:text="${showExaminer.imie}"></test>
+                    <test th:text="${showExaminer.nazwisko}"></test>
+                </div>
+                <div id="list_of_groups">
+                    <form th:action="@{/groups/addGroup}" method="GET">
+                        <input type="submit" value="Dodaj grupę" style="margin-left: 20%;
+                                margin-right: 20%;margin-top: 5%;width: 60%; min-width: 30%"/>
+                    </form>
+                    <ol>
+                        <li th:each="group : ${showGroups}">
+                            <p th:text="${group.nazwa}"></p>
+                        </li>
+                    </ol>
+                    <div id="delete_member_button_style">
+                        <form th:action="@{/}" method="get">
+                            <input type="submit" value="Powrót" style="margin-left: 20%; margin-right: 20%; margin-top: 5%;
+                            margin-bottom: 5%; width: 60%; min-width: 30%; "/>
+                        </form>
+                    </div>
+                </div>
+                <div id="group_management">
+                    <form method="post" th:action="@{/groups/details}" >
+                    <div id="group_list">
+                        <select name="group_choice" style="width: 100%; padding: 1%;">
+                            <option value="0">
+                                <p>Wybierz grupę...</p>
+                            </option>
+                            <option th:each="group : ${showGroups}" th:value="${group.id_grupy}">
+                                <p th:text="${group.nazwa}"></p>
+                            </option>
+                        </select>
+                    </div>
+                    <div id="group_options" style="background-color: inherit; margin-right: 5%">
+                        <input type="submit" name="show_group_details" value="Pokaż szczegóły"
+                               style="width: 60%; float: right; padding-right: 2%;"/>
+                    </div>
+                    </form>
+                </div>
+                </div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<div id="footerBDIO"></div>
+
+</body>
+</html>
